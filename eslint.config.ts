@@ -4,8 +4,12 @@ import {
 	disableAutofix,
 } from "@morev/eslint-disable-autofix";
 import stylistic from "@stylistic/eslint-plugin";
+import {
+	type Linter,
+} from "eslint";
 // eslint-disable-next-line import-x/no-namespace
 import * as tsResolver from "eslint-import-resolver-typescript";
+// @ts-expect-error The plugin doesn't provide types.
 import importExportNewline from "eslint-plugin-import-export-newline";
 import {
 	flatConfigs as importConfigs,
@@ -21,25 +25,15 @@ import {
 	configs as typeScriptConfigs,
 } from "typescript-eslint";
 
-/**
- * @typedef {import("eslint").Linter.StringSeverity} RuleSeverity
- */
-
 /*
 	Having the severity constants allows fast rule severity changes.
 	For example, if necessary to turn off all the rules to check
 	how auto-fix works for one of the rules, it would be necessary to set the
 	constants' value to "off" and manually set the necessary severity of the rule.
 */
-
-/** @type {RuleSeverity} */
-const WARNING = "warn";
-
-/** @type {RuleSeverity} */
-const ERROR = "error";
-
-/** @type {RuleSeverity} */
-const DISABLED = "off";
+const WARNING: Linter.RuleSeverity = "warn";
+const ERROR: Linter.RuleSeverity = "error";
+const DISABLED: Linter.RuleSeverity = "off";
 
 /*
 	Severity of the rules is set this way:
@@ -71,11 +65,13 @@ const eslintConfig = disableAutofix(
 		{
 			files: [
 				"**/*.{ts,tsx}",
-				"eslint.config.js",
+				"eslint.config.ts",
 			],
 			extends: [
 				js.configs.all,
+				// @ts-expect-error Incorrect plugin types.
 				importConfigs.react,
+				// @ts-expect-error Incorrect plugin types.
 				importConfigs.typescript,
 				stylistic.configs.all,
 				typeScriptConfigs.recommendedTypeChecked,
@@ -2310,11 +2306,12 @@ const eslintConfig = disableAutofix(
 		},
 		{
 			files: [
-				"eslint.config.js",
+				"eslint.config.ts",
 			],
 			rules: {
 				"capitalized-comments": DISABLED,
 				"sort-keys": DISABLED,
+				"@typescript-eslint/naming-convention": DISABLED,
 			},
 		},
 	),

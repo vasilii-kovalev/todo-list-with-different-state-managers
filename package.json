@@ -8,7 +8,7 @@
 		"build": "tsc -b && vite build",
 		"preview": "vite preview",
 		"check:types": "tsc --noEmit --project tsconfig.app.json",
-		"check:eslint": "eslint . --quiet"
+		"check:eslint": "bun --bun eslint . --quiet"
 	},
 	"browserslist": [
 		"last 1 chrome version",

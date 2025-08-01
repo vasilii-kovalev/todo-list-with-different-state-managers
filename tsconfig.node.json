@@ -2,7 +2,9 @@
 	"compilerOptions": {
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
 		"target": "ESNext",
-		"lib": ["ESNext"],
+		"lib": [
+			"ESNext"
+		],
 		"module": "ESNext",
 		"skipLibCheck": true,
 		// For JavaScript configs.
@@ -23,5 +25,8 @@
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true
 	},
-	"include": ["vite.config.ts", "eslint.config.js"]
+	"include": [
+		"eslint.config.ts",
+		"vite.config.ts"
+	]
 }
