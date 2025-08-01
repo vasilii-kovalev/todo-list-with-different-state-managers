@@ -1,0 +1,44 @@
+{
+	"name": "todo-list-with-different-state-managers",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"preview": "vite preview",
+		"check:types": "tsc --noEmit --project tsconfig.app.json",
+		"check:eslint": "eslint . --quiet"
+	},
+	"browserslist": [
+		"last 1 chrome version",
+		"last 1 firefox version"
+	],
+	"dependencies": {
+		"@eslint-react/eslint-plugin": "1.51.1",
+		"@eslint/js": "9.28.0",
+		"@morev/eslint-disable-autofix": "1.0.2",
+		"@stylistic/eslint-plugin": "4.4.1",
+		"eslint": "9.28.0",
+		"eslint-import-resolver-typescript": "4.4.3",
+		"eslint-plugin-import-export-newline": "1.0.0",
+		"eslint-plugin-import-x": "4.15.1",
+		"eslint-plugin-react-hooks": "5.2.0",
+		"eslint-plugin-react-refresh": "0.4.20",
+		"eslint-plugin-simple-import-sort": "12.1.1",
+		"globals": "16.2.0",
+		"react": "19.1.0",
+		"react-dom": "19.1.0",
+		"typescript-eslint": "8.33.1"
+	},
+	"devDependencies": {
+		"@types/bun": "1.2.19",
+		"@types/react": "19.1.8",
+		"@types/react-dom": "19.1.6",
+		"@vitejs/plugin-react": "4.6.0",
+		"sonda": "0.9.0",
+		"typescript": "5.8.3",
+		"vite": "7.0.4",
+		"vite-tsconfig-paths": "5.1.4"
+	}
+}
