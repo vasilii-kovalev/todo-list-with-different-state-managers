@@ -93,6 +93,7 @@ const eslintConfig = disableAutofix(
 			},
 			plugins: {
 				"simple-import-sort": simpleImportSort,
+				// The package doesn't have types.
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				"import-export-newline": importExportNewline,
 			},
