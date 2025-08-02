@@ -8,6 +8,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 // https://vite.dev/config/
 const config = defineConfig({
 	build: {
+		// Required for Sonda.
 		sourcemap: true,
 	},
 	plugins: [
