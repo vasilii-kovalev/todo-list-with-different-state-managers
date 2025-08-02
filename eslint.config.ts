@@ -65,7 +65,6 @@ const eslintConfig = disableAutofix(
 		{
 			files: [
 				"**/*.{ts,tsx}",
-				"eslint.config.ts",
 			],
 			extends: [
 				js.configs.all,
