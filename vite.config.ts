@@ -1,3 +1,6 @@
+import {
+	vanillaExtractPlugin,
+} from "@vanilla-extract/vite-plugin";
 import react from "@vitejs/plugin-react";
 import sonda from "sonda/vite";
 import {
@@ -18,6 +21,7 @@ const config = defineConfig({
 			],
 		}),
 		react(),
+		vanillaExtractPlugin(),
 		sonda(),
 	],
 });
