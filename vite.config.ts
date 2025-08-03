@@ -1,4 +1,7 @@
 import {
+	tanstackRouter,
+} from "@tanstack/router-plugin/vite";
+import {
 	vanillaExtractPlugin,
 } from "@vanilla-extract/vite-plugin";
 import react from "@vitejs/plugin-react";
@@ -19,6 +22,10 @@ const config = defineConfig({
 			configNames: [
 				"tsconfig.app.json",
 			],
+		}),
+		tanstackRouter({
+			autoCodeSplitting: true,
+			target: "react",
 		}),
 		react(),
 		vanillaExtractPlugin(),

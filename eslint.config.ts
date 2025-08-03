@@ -60,6 +60,7 @@ const eslintConfig = disableAutofix(
 		{
 			ignores: [
 				"dist",
+				"src/routeTree.gen.ts",
 			],
 		},
 		{
@@ -2271,6 +2272,14 @@ const eslintConfig = disableAutofix(
 				"capitalized-comments": DISABLED,
 				"sort-keys": DISABLED,
 				"@typescript-eslint/naming-convention": DISABLED,
+			},
+		},
+		{
+			files: [
+				"src/routes/__root.tsx",
+			],
+			rules: {
+				"@eslint-react/naming-convention/filename": DISABLED,
 			},
 		},
 	),
