@@ -6,16 +6,16 @@ import {
 	Page,
 } from "@/components/page";
 
-const ReduxPage: FC = () => {
+const JotaiPage: FC = () => {
 	return (
 		<Page>
 			<h1>
-				Redux
+				Jotai
 			</h1>
 		</Page>
 	);
 };
 
 export {
-	ReduxPage,
+	JotaiPage,
 };
