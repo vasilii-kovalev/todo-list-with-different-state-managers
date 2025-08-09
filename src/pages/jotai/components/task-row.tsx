@@ -17,10 +17,10 @@ import {
 	removeTaskAtom,
 	updateTaskIsCompletedAtom,
 	updateTaskNameAtom,
-} from "../actions";
+} from "../atoms/actions";
 import {
 	existingTaskNamesAtom,
-} from "../atoms/tasks";
+} from "../atoms/derived";
 
 interface TaskRowProps {
 	task: Task;
@@ -42,16 +42,10 @@ const TaskRow: FC<TaskRowProps> = ({
 	return (
 		<TaskRowCommon
 			existingTaskNames={existingTaskNames}
-			removeTask={(params) => {
-				removeTask(params);
-			}}
+			removeTask={removeTask}
 			task={task}
-			updateTaskIsCompleted={(params) => {
-				updateTaskIsCompleted(params);
-			}}
-			updateTaskName={(params) => {
-				updateTaskName(params);
-			}}
+			updateTaskIsCompleted={updateTaskIsCompleted}
+			updateTaskName={updateTaskName}
 		/>
 	);
 };

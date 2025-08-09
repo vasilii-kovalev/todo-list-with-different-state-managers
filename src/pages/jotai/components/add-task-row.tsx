@@ -15,10 +15,10 @@ import {
 
 import {
 	addTaskAtom,
-} from "../actions";
+} from "../atoms/actions";
 import {
 	existingTaskNamesAtom,
-} from "../atoms/tasks";
+} from "../atoms/derived";
 
 interface AddTaskRowProps {
 	groupId: GroupId;
@@ -36,9 +36,7 @@ const AddTaskRow: FC<AddTaskRowProps> = ({
 
 	return (
 		<AddTaskRowCommon
-			addTask={(params) => {
-				addTask(params);
-			}}
+			addTask={addTask}
 			existingTaskNames={existingTaskNames}
 			groupId={groupId}
 		/>

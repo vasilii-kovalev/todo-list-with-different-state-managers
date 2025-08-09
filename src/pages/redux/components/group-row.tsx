@@ -17,18 +17,18 @@ import {
 } from "@/features/groups/types";
 
 import {
-	removeGroup,
-	updateGroupIsCollapsed,
-	updateGroupName,
-} from "../reducer";
-import {
-	selectExistingGroupNames,
-	selectTasksForGroupId,
-} from "../selectors";
-import {
 	type Dispatch,
 	type RootState,
 } from "../store";
+import {
+	removeGroup,
+	updateGroupIsCollapsed,
+	updateGroupName,
+} from "../store/reducer";
+import {
+	selectExistingGroupNames,
+	selectTasksForGroupId,
+} from "../store/selectors";
 import {
 	AddTaskRow,
 } from "./add-task-row";

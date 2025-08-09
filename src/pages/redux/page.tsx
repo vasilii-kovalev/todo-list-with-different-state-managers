@@ -18,12 +18,12 @@ import {
 	GroupList,
 } from "./components/group-list";
 import {
-	resetState,
-} from "./reducer";
-import {
 	type Dispatch,
 	store,
 } from "./store";
+import {
+	resetState,
+} from "./store/reducer";
 
 const ReduxPage: FC = () => {
 	const dispatch = useDispatch<Dispatch>();

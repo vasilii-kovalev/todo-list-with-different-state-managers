@@ -12,20 +12,18 @@ import {
 
 import {
 	addGroupAtom,
-} from "../actions";
+} from "../atoms/actions";
 import {
 	existingGroupNamesAtom,
-} from "../atoms/groups";
+} from "../atoms/derived";
 
 const AddGroupRow: FC = () => {
-	const existingGroupNames = useAtomValue(existingGroupNamesAtom());
+	const existingGroupNames = useAtomValue(existingGroupNamesAtom(undefined));
 	const addGroup = useSetAtom(addGroupAtom);
 
 	return (
 		<AddGroupRowCommon
-			addGroup={(params) => {
-				addGroup(params);
-			}}
+			addGroup={addGroup}
 			existingGroupNames={existingGroupNames}
 		/>
 	);

@@ -11,15 +11,15 @@ import {
 } from "@/components/add-group-row";
 
 import {
-	addGroup,
-} from "../reducer";
-import {
-	selectExistingGroupNames,
-} from "../selectors";
-import {
 	type Dispatch,
 	type RootState,
 } from "../store";
+import {
+	addGroup,
+} from "../store/reducer";
+import {
+	selectExistingGroupNames,
+} from "../store/selectors";
 
 const AddGroupRow: FC = () => {
 	const dispatch = useDispatch<Dispatch>();

@@ -12,6 +12,7 @@ import {
 
 import {
 	type GroupId,
+	type GroupName,
 } from "@/features/groups/types";
 import {
 	type Task,
@@ -19,7 +20,29 @@ import {
 	type TaskName,
 } from "@/features/tasks/types";
 
-const tasksAtom = atom<Array<Task>>([]);
+import {
+	groupsAtom,
+	tasksAtom,
+} from "./base";
+
+const existingGroupNamesAtom = atomFamily(
+	(groupIdToExclude: GroupId | undefined): Atom<Array<GroupName>> => {
+		return atom<Array<GroupName>>((get) => {
+			const groups = get(groupsAtom);
+
+			const filteredGroups = groups.filter((group) => {
+				return (
+					group.id !== groupIdToExclude
+					&& !isEmpty(group.name)
+				);
+			});
+
+			return filteredGroups.map<GroupName>((group) => {
+				return group.name;
+			});
+		});
+	},
+);
 
 const tasksForGroupIdAtom = atomFamily(
 	(groupId: GroupId): Atom<Array<Task>> => {
@@ -31,6 +54,7 @@ const tasksForGroupIdAtom = atomFamily(
 			});
 		});
 	},
+	isEqual,
 );
 
 interface ExistingTaskNamesAtomPayload {
@@ -48,30 +72,24 @@ const existingTaskNamesAtom = atomFamily(
 		return atom<Array<TaskName>>((get) => {
 			const tasks = get(tasksAtom);
 
-			return tasks.reduce<Array<TaskName>>(
-				(
-					existingTaskNamesCurrent,
-					task,
-				) => {
-					if (
-						task.groupId === groupId
-						&& task.id !== taskIdToExclude
-						&& !isEmpty(task.name)
-					) {
-						existingTaskNamesCurrent.push(task.name);
-					}
+			const filteredTasks = tasks.filter((task) => {
+				return (
+					task.groupId === groupId
+					&& task.id !== taskIdToExclude
+					&& !isEmpty(task.name)
+				);
+			});
 
-					return existingTaskNamesCurrent;
-				},
-				[],
-			);
+			return filteredTasks.map<TaskName>((task) => {
+				return task.name;
+			});
 		});
 	},
 	isEqual,
 );
 
 export {
+	existingGroupNamesAtom,
 	existingTaskNamesAtom,
-	tasksAtom,
 	tasksForGroupIdAtom,
 };

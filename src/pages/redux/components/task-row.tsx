@@ -14,17 +14,17 @@ import {
 } from "@/features/tasks/types";
 
 import {
-	removeTask,
-	updateTaskIsCompleted,
-	updateTaskName,
-} from "../reducer";
-import {
-	selectExistingTaskNames,
-} from "../selectors";
-import {
 	type Dispatch,
 	type RootState,
 } from "../store";
+import {
+	removeTask,
+	updateTaskIsCompleted,
+	updateTaskName,
+} from "../store/reducer";
+import {
+	selectExistingTaskNames,
+} from "../store/selectors";
 
 interface TaskRowProps {
 	task: Task;

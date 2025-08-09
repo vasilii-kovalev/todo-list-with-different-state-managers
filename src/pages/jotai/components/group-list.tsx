@@ -8,7 +8,7 @@ import {
 
 import {
 	groupsAtom,
-} from "../atoms/groups";
+} from "../atoms/base";
 import {
 	GroupRow,
 } from "./group-row";

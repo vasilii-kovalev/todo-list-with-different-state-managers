@@ -1,7 +1,9 @@
 import {
 	Provider,
-	useSetAtom,
 } from "jotai";
+import {
+	useResetAtom,
+} from "jotai/utils";
 import {
 	type FC,
 	useEffect,
@@ -12,8 +14,8 @@ import {
 } from "@/components/page";
 
 import {
-	resetStateAtom,
-} from "./actions";
+	groupsAtom,
+} from "./atoms/base";
 import {
 	AddGroupRow,
 } from "./components/add-group-row";
@@ -22,16 +24,16 @@ import {
 } from "./components/group-list";
 
 const JotaiPage: FC = () => {
-	const resetState = useSetAtom(resetStateAtom);
+	const resetGroups = useResetAtom(groupsAtom);
 
 	useEffect(
 		() => {
 			return () => {
-				resetState();
+				resetGroups();
 			};
 		},
 		[
-			resetState,
+			resetGroups,
 		],
 	);
 

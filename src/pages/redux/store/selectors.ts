@@ -59,27 +59,16 @@ const selectExistingGroupNames = createSelector(
 		groups,
 		groupIdToExclude,
 	): Array<GroupName> => {
-		return groups.reduce<Array<GroupName>>(
-			(
-				existingGroupNamesCurrent,
-				group,
-			) => {
-				const {
-					id,
-					name,
-				} = group;
+		const filteredGroups = groups.filter((group) => {
+			return (
+				group.id !== groupIdToExclude
+				&& !isEmpty(group.name)
+			);
+		});
 
-				if (
-					id !== groupIdToExclude
-					&& !isEmpty(name)
-				) {
-					existingGroupNamesCurrent.push(name);
-				}
-
-				return existingGroupNamesCurrent;
-			},
-			[],
-		);
+		return filteredGroups.map<GroupName>((group) => {
+			return group.name;
+		});
 	},
 );
 
@@ -98,23 +87,17 @@ const selectExistingTaskNames = createSelector(
 		groupId,
 		taskIdToExclude,
 	): Array<TaskName> => {
-		return tasks.reduce<Array<TaskName>>(
-			(
-				existingItemNamesCurrent,
-				task,
-			) => {
-				if (
-					task.groupId === groupId
-					&& task.id !== taskIdToExclude
-					&& !isEmpty(task.name)
-				) {
-					existingItemNamesCurrent.push(task.name);
-				}
+		const filteredTasks = tasks.filter((task) => {
+			return (
+				task.groupId === groupId
+				&& task.id !== taskIdToExclude
+				&& !isEmpty(task.name)
+			);
+		});
 
-				return existingItemNamesCurrent;
-			},
-			[],
-		);
+		return filteredTasks.map<TaskName>((task) => {
+			return task.name;
+		});
 	},
 );
 

@@ -14,15 +14,15 @@ import {
 } from "@/features/groups/types";
 
 import {
-	addTask,
-} from "../reducer";
-import {
-	selectExistingTaskNames,
-} from "../selectors";
-import {
 	type Dispatch,
 	type RootState,
 } from "../store";
+import {
+	addTask,
+} from "../store/reducer";
+import {
+	selectExistingTaskNames,
+} from "../store/selectors";
 
 interface AddTaskRowProps {
 	groupId: GroupId;

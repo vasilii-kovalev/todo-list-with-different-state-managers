@@ -20,13 +20,11 @@ import {
 	removeGroupAtom,
 	updateGroupIsCollapsedAtom,
 	updateGroupNameAtom,
-} from "../actions";
+} from "../atoms/actions";
 import {
 	existingGroupNamesAtom,
-} from "../atoms/groups";
-import {
 	tasksForGroupIdAtom,
-} from "../atoms/tasks";
+} from "../atoms/derived";
 import {
 	AddTaskRow,
 } from "./add-task-row";
@@ -52,15 +50,9 @@ const GroupRow: FC<GroupRowProps> = ({
 			existingGroupNames={existingGroupNames}
 			group={group}
 			hasTasks={!isEmpty(tasks)}
-			removeGroup={(params) => {
-				removeGroup(params);
-			}}
-			updateGroupIsCollapsed={(params) => {
-				updateGroupIsCollapsed(params);
-			}}
-			updateGroupName={(params) => {
-				updateGroupName(params);
-			}}
+			removeGroup={removeGroup}
+			updateGroupIsCollapsed={updateGroupIsCollapsed}
+			updateGroupName={updateGroupName}
 		>
 			<AddTaskRow
 				groupId={group.id}

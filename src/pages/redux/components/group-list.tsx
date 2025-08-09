@@ -7,11 +7,11 @@ import {
 } from "react-redux";
 
 import {
-	selectGroups,
-} from "../selectors";
-import {
 	type RootState,
 } from "../store";
+import {
+	selectGroups,
+} from "../store/selectors";
 import {
 	GroupRow,
 } from "./group-row";
