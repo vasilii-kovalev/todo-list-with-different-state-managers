@@ -1,10 +1,10 @@
 import {
+	useAtomValue,
+	useSetAtom,
+} from "jotai";
+import {
 	type FC,
 } from "react";
-import {
-	useDispatch,
-	useSelector,
-} from "react-redux";
 
 import {
 	AddTaskRow as AddTaskRowCommon,
@@ -14,15 +14,11 @@ import {
 } from "@/features/groups/types";
 
 import {
-	addTask,
-} from "../reducer";
+	addTaskAtom,
+} from "../actions";
 import {
-	selectExistingTaskNames,
-} from "../selectors";
-import {
-	type Dispatch,
-	type RootState,
-} from "../store";
+	existingTaskNamesAtom,
+} from "../atoms/tasks";
 
 interface AddTaskRowProps {
 	groupId: GroupId;
@@ -31,19 +27,17 @@ interface AddTaskRowProps {
 const AddTaskRow: FC<AddTaskRowProps> = ({
 	groupId,
 }) => {
-	const dispatch = useDispatch<Dispatch>();
-
-	const existingTaskNames = useSelector((state: RootState) => {
-		return selectExistingTaskNames(
-			state.toDo.tasks,
+	const existingTaskNames = useAtomValue(
+		existingTaskNamesAtom({
 			groupId,
-		);
-	});
+		}),
+	);
+	const addTask = useSetAtom(addTaskAtom);
 
 	return (
 		<AddTaskRowCommon
 			addTask={(params) => {
-				dispatch(addTask(params));
+				addTask(params);
 			}}
 			existingTaskNames={existingTaskNames}
 			groupId={groupId}

@@ -2,12 +2,12 @@ import {
 	isEmpty,
 } from "es-toolkit/compat";
 import {
+	useAtomValue,
+	useSetAtom,
+} from "jotai";
+import {
 	type FC,
 } from "react";
-import {
-	useDispatch,
-	useSelector,
-} from "react-redux";
 
 import {
 	GroupRow as GroupRowCommon,
@@ -17,18 +17,16 @@ import {
 } from "@/features/groups/types";
 
 import {
-	removeGroup,
-	updateGroupIsCollapsed,
-	updateGroupName,
-} from "../reducer";
+	removeGroupAtom,
+	updateGroupIsCollapsedAtom,
+	updateGroupNameAtom,
+} from "../actions";
 import {
-	selectExistingGroupNames,
-	selectTasksForGroupId,
-} from "../selectors";
+	existingGroupNamesAtom,
+} from "../atoms/groups";
 import {
-	type Dispatch,
-	type RootState,
-} from "../store";
+	tasksForGroupIdAtom,
+} from "../atoms/tasks";
 import {
 	AddTaskRow,
 } from "./add-task-row";
@@ -43,21 +41,11 @@ interface GroupRowProps {
 const GroupRow: FC<GroupRowProps> = ({
 	group,
 }) => {
-	const dispatch = useDispatch<Dispatch>();
-
-	const tasks = useSelector((state: RootState) => {
-		return selectTasksForGroupId(
-			state.toDo.tasks,
-			group.id,
-		);
-	});
-
-	const existingGroupNames = useSelector((state: RootState) => {
-		return selectExistingGroupNames(
-			state.toDo.groups,
-			group.id,
-		);
-	});
+	const tasks = useAtomValue(tasksForGroupIdAtom(group.id));
+	const existingGroupNames = useAtomValue(existingGroupNamesAtom(group.id));
+	const removeGroup = useSetAtom(removeGroupAtom);
+	const updateGroupIsCollapsed = useSetAtom(updateGroupIsCollapsedAtom);
+	const updateGroupName = useSetAtom(updateGroupNameAtom);
 
 	return (
 		<GroupRowCommon
@@ -65,13 +53,13 @@ const GroupRow: FC<GroupRowProps> = ({
 			group={group}
 			hasTasks={!isEmpty(tasks)}
 			removeGroup={(params) => {
-				dispatch(removeGroup(params));
+				removeGroup(params);
 			}}
 			updateGroupIsCollapsed={(params) => {
-				dispatch(updateGroupIsCollapsed(params));
+				updateGroupIsCollapsed(params);
 			}}
 			updateGroupName={(params) => {
-				dispatch(updateGroupName(params));
+				updateGroupName(params);
 			}}
 		>
 			<AddTaskRow

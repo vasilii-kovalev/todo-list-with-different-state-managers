@@ -11,7 +11,6 @@ import {
 } from "@/components/task-row";
 import {
 	type Task,
-	type TaskName,
 } from "@/features/tasks/types";
 
 import {
@@ -34,16 +33,13 @@ interface TaskRowProps {
 const TaskRow: FC<TaskRowProps> = ({
 	task,
 }) => {
-	const {
-		id,
-	} = task;
-
 	const dispatch = useDispatch<Dispatch>();
 
-	const existingTaskNames = useSelector<RootState, Array<TaskName>>((state) => {
+	const existingTaskNames = useSelector((state: RootState) => {
 		return selectExistingTaskNames(
 			state.toDo.tasks,
-			id,
+			task.groupId,
+			task.id,
 		);
 	});
 

@@ -9,9 +9,6 @@ import {
 import {
 	AddGroupRow as AddGroupRowCommon,
 } from "@/components/add-group-row";
-import {
-	type GroupName,
-} from "@/features/groups/types";
 
 import {
 	addGroup,
@@ -27,11 +24,8 @@ import {
 const AddGroupRow: FC = () => {
 	const dispatch = useDispatch<Dispatch>();
 
-	const existingGroupNames = useSelector<RootState, Array<GroupName>>((state) => {
-		return selectExistingGroupNames(
-			state.toDo.groups,
-			undefined,
-		);
+	const existingGroupNames = useSelector((state: RootState) => {
+		return selectExistingGroupNames(state.toDo.groups);
 	});
 
 	return (

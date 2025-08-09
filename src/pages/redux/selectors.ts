@@ -10,6 +10,7 @@ import {
 	type GroupName,
 } from "@/features/groups/types";
 import {
+	type Task,
 	type TaskId,
 	type TaskName,
 } from "@/features/tasks/types";
@@ -23,24 +24,24 @@ import {
 } from "./reducer";
 
 const {
-	selectAll: selectAllGroups,
+	selectAll: selectGroups,
 } = groupsAdapter.getSelectors();
 
 const {
-	selectAll: selectAllTasks,
+	selectAll: selectTasks,
 } = tasksAdapter.getSelectors();
 
-const selectAllTasksForGroupId = createSelector(
+const selectTasksForGroupId = createSelector(
 	[
-		selectAllTasks,
-		(state: ToDoState["tasks"], groupId: GroupId) => {
+		selectTasks,
+		(state: ToDoState["tasks"], groupId: GroupId): GroupId => {
 			return groupId;
 		},
 	],
 	(
 		tasks,
 		groupId,
-	) => {
+	): Array<Task> => {
 		return tasks.filter((task) => {
 			return task.groupId === groupId;
 		});
@@ -49,15 +50,15 @@ const selectAllTasksForGroupId = createSelector(
 
 const selectExistingGroupNames = createSelector(
 	[
-		selectAllGroups,
-		(state: ToDoState["groups"], groupIdToExclude: GroupId | undefined) => {
+		selectGroups,
+		(state: ToDoState["groups"], groupIdToExclude?: GroupId): GroupId | undefined => {
 			return groupIdToExclude;
 		},
 	],
 	(
 		groups,
 		groupIdToExclude,
-	) => {
+	): Array<GroupName> => {
 		return groups.reduce<Array<GroupName>>(
 			(
 				existingGroupNamesCurrent,
@@ -84,30 +85,30 @@ const selectExistingGroupNames = createSelector(
 
 const selectExistingTaskNames = createSelector(
 	[
-		selectAllTasks,
-		(state: ToDoState["tasks"], taskIdToExclude: TaskId | undefined) => {
+		selectTasks,
+		(state: ToDoState["tasks"], groupId: GroupId): GroupId => {
+			return groupId;
+		},
+		(state: ToDoState["tasks"], groupId: GroupId, taskIdToExclude?: TaskId): TaskId | undefined => {
 			return taskIdToExclude;
 		},
 	],
 	(
 		tasks,
+		groupId,
 		taskIdToExclude,
-	) => {
+	): Array<TaskName> => {
 		return tasks.reduce<Array<TaskName>>(
 			(
 				existingItemNamesCurrent,
 				task,
 			) => {
-				const {
-					id,
-					name,
-				} = task;
-
 				if (
-					id !== taskIdToExclude
-					&& !isEmpty(name)
+					task.groupId === groupId
+					&& task.id !== taskIdToExclude
+					&& !isEmpty(task.name)
 				) {
-					existingItemNamesCurrent.push(name);
+					existingItemNamesCurrent.push(task.name);
 				}
 
 				return existingItemNamesCurrent;
@@ -118,8 +119,8 @@ const selectExistingTaskNames = createSelector(
 );
 
 export {
-	selectAllGroups,
-	selectAllTasksForGroupId,
 	selectExistingGroupNames,
 	selectExistingTaskNames,
+	selectGroups,
+	selectTasksForGroupId,
 };

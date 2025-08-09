@@ -1,25 +1,20 @@
 import {
+	useAtomValue,
+} from "jotai";
+import {
 	type FC,
 	Fragment,
 } from "react";
-import {
-	useSelector,
-} from "react-redux";
 
 import {
-	selectGroups,
-} from "../selectors";
-import {
-	type RootState,
-} from "../store";
+	groupsAtom,
+} from "../atoms/groups";
 import {
 	GroupRow,
 } from "./group-row";
 
 const GroupList: FC = () => {
-	const groups = useSelector((state: RootState) => {
-		return selectGroups(state.toDo.groups);
-	});
+	const groups = useAtomValue(groupsAtom);
 
 	return (
 		<Fragment>

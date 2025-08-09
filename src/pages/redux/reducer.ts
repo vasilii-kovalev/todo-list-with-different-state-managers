@@ -3,6 +3,9 @@ import {
 	type EntityState,
 	type PayloadAction,
 } from "@reduxjs/toolkit";
+import {
+	isEmpty,
+} from "es-toolkit/compat";
 
 import {
 	type Group,
@@ -54,10 +57,25 @@ const slice = createSlice({
 			state,
 			action: PayloadAction<GroupId>,
 		) => {
+			const groupId = action.payload;
+
 			groupsAdapter.removeOne(
 				state.groups,
-				action.payload,
+				groupId,
 			);
+
+			const taskIdsToRemove = state.tasks.ids.filter((taskId) => {
+				const task = state.tasks.entities[taskId];
+
+				return task?.groupId === groupId;
+			});
+
+			if (!isEmpty(taskIdsToRemove)) {
+				tasksAdapter.removeMany(
+					state.tasks,
+					taskIdsToRemove,
+				);
+			}
 		},
 		removeTask: (
 			state,
