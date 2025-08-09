@@ -21,10 +21,10 @@ import {
 	removeTask,
 	updateTaskIsCompleted,
 	updateTaskName,
-} from "../store/reducer";
+} from "../store/tasks/reducer";
 import {
 	selectExistingTaskNames,
-} from "../store/selectors";
+} from "../store/tasks/selectors";
 
 interface TaskRowProps {
 	task: Task;
@@ -37,7 +37,7 @@ const TaskRow: FC<TaskRowProps> = ({
 
 	const existingTaskNames = useSelector((state: RootState) => {
 		return selectExistingTaskNames(
-			state.toDo.tasks,
+			state.tasks,
 			task.groupId,
 			task.id,
 		);
@@ -46,8 +46,8 @@ const TaskRow: FC<TaskRowProps> = ({
 	return (
 		<TaskRowCommon
 			existingTaskNames={existingTaskNames}
-			removeTask={(params) => {
-				dispatch(removeTask(params));
+			removeTask={(taskId) => {
+				dispatch(removeTask(taskId));
 			}}
 			task={task}
 			updateTaskIsCompleted={(params) => {

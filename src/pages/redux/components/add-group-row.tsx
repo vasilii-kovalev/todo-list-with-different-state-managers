@@ -16,22 +16,22 @@ import {
 } from "../store";
 import {
 	addGroup,
-} from "../store/reducer";
+} from "../store/groups/reducer";
 import {
 	selectExistingGroupNames,
-} from "../store/selectors";
+} from "../store/groups/selectors";
 
 const AddGroupRow: FC = () => {
 	const dispatch = useDispatch<Dispatch>();
 
 	const existingGroupNames = useSelector((state: RootState) => {
-		return selectExistingGroupNames(state.toDo.groups);
+		return selectExistingGroupNames(state.groups);
 	});
 
 	return (
 		<AddGroupRowCommon
-			addGroup={(params) => {
-				dispatch(addGroup(params));
+			addGroup={(group) => {
+				dispatch(addGroup(group));
 			}}
 			existingGroupNames={existingGroupNames}
 		/>

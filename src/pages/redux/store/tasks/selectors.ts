@@ -1,4 +1,5 @@
 import {
+	createDraftSafeSelector,
 	createSelector,
 } from "@reduxjs/toolkit";
 import {
@@ -7,7 +8,6 @@ import {
 
 import {
 	type GroupId,
-	type GroupName,
 } from "@/features/groups/types";
 import {
 	type Task,
@@ -16,25 +16,20 @@ import {
 } from "@/features/tasks/types";
 
 import {
-	groupsAdapter,
 	tasksAdapter,
 } from "./entity-adapters";
 import {
-	type ToDoState,
+	type TasksState,
 } from "./reducer";
-
-const {
-	selectAll: selectGroups,
-} = groupsAdapter.getSelectors();
 
 const {
 	selectAll: selectTasks,
 } = tasksAdapter.getSelectors();
 
-const selectTasksForGroupId = createSelector(
+const selectTasksForGroupId = createDraftSafeSelector(
 	[
 		selectTasks,
-		(state: ToDoState["tasks"], groupId: GroupId): GroupId => {
+		(state: TasksState, groupId: GroupId): GroupId => {
 			return groupId;
 		},
 	],
@@ -48,37 +43,13 @@ const selectTasksForGroupId = createSelector(
 	},
 );
 
-const selectExistingGroupNames = createSelector(
-	[
-		selectGroups,
-		(state: ToDoState["groups"], groupIdToExclude?: GroupId): GroupId | undefined => {
-			return groupIdToExclude;
-		},
-	],
-	(
-		groups,
-		groupIdToExclude,
-	): Array<GroupName> => {
-		const filteredGroups = groups.filter((group) => {
-			return (
-				group.id !== groupIdToExclude
-				&& !isEmpty(group.name)
-			);
-		});
-
-		return filteredGroups.map<GroupName>((group) => {
-			return group.name;
-		});
-	},
-);
-
 const selectExistingTaskNames = createSelector(
 	[
 		selectTasks,
-		(state: ToDoState["tasks"], groupId: GroupId): GroupId => {
+		(state: TasksState, groupId: GroupId): GroupId => {
 			return groupId;
 		},
-		(state: ToDoState["tasks"], groupId: GroupId, taskIdToExclude?: TaskId): TaskId | undefined => {
+		(state: TasksState, groupId: GroupId, taskIdToExclude?: TaskId): TaskId | undefined => {
 			return taskIdToExclude;
 		},
 	],
@@ -102,8 +73,6 @@ const selectExistingTaskNames = createSelector(
 );
 
 export {
-	selectExistingGroupNames,
 	selectExistingTaskNames,
-	selectGroups,
 	selectTasksForGroupId,
 };

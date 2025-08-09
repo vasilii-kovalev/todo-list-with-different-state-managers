@@ -22,8 +22,11 @@ import {
 	store,
 } from "./store";
 import {
-	resetState,
-} from "./store/reducer";
+	resetGroupsState,
+} from "./store/groups/reducer";
+import {
+	resetTasksState,
+} from "./store/tasks/reducer";
 
 const ReduxPage: FC = () => {
 	const dispatch = useDispatch<Dispatch>();
@@ -31,7 +34,9 @@ const ReduxPage: FC = () => {
 	useEffect(
 		() => {
 			return () => {
-				dispatch(resetState());
+				dispatch(resetGroupsState());
+
+				dispatch(resetTasksState());
 			};
 		},
 		[

@@ -19,10 +19,10 @@ import {
 } from "../store";
 import {
 	addTask,
-} from "../store/reducer";
+} from "../store/tasks/reducer";
 import {
 	selectExistingTaskNames,
-} from "../store/selectors";
+} from "../store/tasks/selectors";
 
 interface AddTaskRowProps {
 	groupId: GroupId;
@@ -35,15 +35,15 @@ const AddTaskRow: FC<AddTaskRowProps> = ({
 
 	const existingTaskNames = useSelector((state: RootState) => {
 		return selectExistingTaskNames(
-			state.toDo.tasks,
+			state.tasks,
 			groupId,
 		);
 	});
 
 	return (
 		<AddTaskRowCommon
-			addTask={(params) => {
-				dispatch(addTask(params));
+			addTask={(task) => {
+				dispatch(addTask(task));
 			}}
 			existingTaskNames={existingTaskNames}
 			groupId={groupId}

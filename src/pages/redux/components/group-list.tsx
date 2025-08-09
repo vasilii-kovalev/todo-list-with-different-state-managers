@@ -11,14 +11,14 @@ import {
 } from "../store";
 import {
 	selectGroups,
-} from "../store/selectors";
+} from "../store/groups/selectors";
 import {
 	GroupRow,
 } from "./group-row";
 
 const GroupList: FC = () => {
 	const groups = useSelector((state: RootState) => {
-		return selectGroups(state.toDo.groups);
+		return selectGroups(state.groups);
 	});
 
 	return (

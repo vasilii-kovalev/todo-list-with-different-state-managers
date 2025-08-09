@@ -24,11 +24,16 @@ import {
 	removeGroup,
 	updateGroupIsCollapsed,
 	updateGroupName,
-} from "../store/reducer";
+} from "../store/groups/reducer";
 import {
 	selectExistingGroupNames,
+} from "../store/groups/selectors";
+import {
+	removeTasksForGroup,
+} from "../store/tasks/reducer";
+import {
 	selectTasksForGroupId,
-} from "../store/selectors";
+} from "../store/tasks/selectors";
 import {
 	AddTaskRow,
 } from "./add-task-row";
@@ -47,14 +52,14 @@ const GroupRow: FC<GroupRowProps> = ({
 
 	const tasks = useSelector((state: RootState) => {
 		return selectTasksForGroupId(
-			state.toDo.tasks,
+			state.tasks,
 			group.id,
 		);
 	});
 
 	const existingGroupNames = useSelector((state: RootState) => {
 		return selectExistingGroupNames(
-			state.toDo.groups,
+			state.groups,
 			group.id,
 		);
 	});
@@ -64,8 +69,10 @@ const GroupRow: FC<GroupRowProps> = ({
 			existingGroupNames={existingGroupNames}
 			group={group}
 			hasTasks={!isEmpty(tasks)}
-			removeGroup={(params) => {
-				dispatch(removeGroup(params));
+			removeGroup={(groupId) => {
+				dispatch(removeGroup(groupId));
+
+				dispatch(removeTasksForGroup(groupId));
 			}}
 			updateGroupIsCollapsed={(params) => {
 				dispatch(updateGroupIsCollapsed(params));

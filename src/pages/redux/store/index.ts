@@ -3,12 +3,16 @@ import {
 } from "@reduxjs/toolkit";
 
 import {
-	toDoReducer,
-} from "./reducer";
+	groupsReducer,
+} from "./groups/reducer";
+import {
+	tasksReducer,
+} from "./tasks/reducer";
 
 const store = configureStore({
 	reducer: {
-		toDo: toDoReducer,
+		groups: groupsReducer,
+		tasks: tasksReducer,
 	},
 });
 
