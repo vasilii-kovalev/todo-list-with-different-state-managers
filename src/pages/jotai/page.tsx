@@ -15,6 +15,7 @@ import {
 
 import {
 	groupsAtom,
+	tasksAtom,
 } from "./atoms/base";
 import {
 	AddGroupRow,
@@ -25,15 +26,19 @@ import {
 
 const JotaiPage: FC = () => {
 	const resetGroups = useResetAtom(groupsAtom);
+	const resetTasks = useResetAtom(tasksAtom);
 
 	useEffect(
 		() => {
 			return () => {
 				resetGroups();
+
+				resetTasks();
 			};
 		},
 		[
 			resetGroups,
+			resetTasks,
 		],
 	);
 

@@ -26,11 +26,9 @@ const addGroupAtom = atom(
 		set(
 			groupsAtom,
 			(groups) => {
-				const isGroupAlreadyExists = groups.some(
-					(groupItem) => {
-						return groupItem.id === group.id;
-					},
-				);
+				const isGroupAlreadyExists = groups.some((groupCurrent) => {
+					return groupCurrent.id === group.id;
+				});
 
 				if (isGroupAlreadyExists) {
 					return groups;
@@ -55,11 +53,9 @@ const addTaskAtom = atom(
 		set(
 			tasksAtom,
 			(tasks) => {
-				const isTaskAlreadyExists = tasks.some(
-					(taskItem) => {
-						return taskItem.id === task.id;
-					},
-				);
+				const isTaskAlreadyExists = tasks.some((taskCurrent) => {
+					return taskCurrent.id === task.id;
+				});
 
 				if (isTaskAlreadyExists) {
 					return tasks;
@@ -84,22 +80,18 @@ const removeGroupAtom = atom(
 		set(
 			groupsAtom,
 			(groups) => {
-				return groups.filter(
-					(groupItem) => {
-						return groupItem.id !== groupId;
-					},
-				);
+				return groups.filter((group) => {
+					return group.id !== groupId;
+				});
 			},
 		);
 
 		set(
 			tasksAtom,
 			(tasks) => {
-				return tasks.filter(
-					(taskItem) => {
-						return taskItem.groupId !== groupId;
-					},
-				);
+				return tasks.filter((task) => {
+					return task.groupId !== groupId;
+				});
 			},
 		);
 	},
@@ -115,11 +107,9 @@ const removeTaskAtom = atom(
 		set(
 			tasksAtom,
 			(tasks) => {
-				return tasks.filter(
-					(taskItem) => {
-						return taskItem.id !== taskId;
-					},
-				);
+				return tasks.filter((task) => {
+					return task.id !== taskId;
+				});
 			},
 		);
 	},
@@ -144,18 +134,16 @@ const updateGroupIsCollapsedAtom = atom(
 		set(
 			groupsAtom,
 			(groups) => {
-				return groups.map(
-					(groupItem) => {
-						if (groupItem.id === id) {
-							return {
-								...groupItem,
-								isCollapsed,
-							};
-						}
+				return groups.map((group) => {
+					if (group.id === id) {
+						return {
+							...group,
+							isCollapsed,
+						};
+					}
 
-						return groupItem;
-					},
-				);
+					return group;
+				});
 			},
 		);
 	},
@@ -180,18 +168,16 @@ const updateGroupNameAtom = atom(
 		set(
 			groupsAtom,
 			(groups) => {
-				return groups.map(
-					(groupItem) => {
-						if (groupItem.id === id) {
-							return {
-								...groupItem,
-								name,
-							};
-						}
+				return groups.map((group) => {
+					if (group.id === id) {
+						return {
+							...group,
+							name,
+						};
+					}
 
-						return groupItem;
-					},
-				);
+					return group;
+				});
 			},
 		);
 	},
@@ -216,18 +202,16 @@ const updateTaskIsCompletedAtom = atom(
 		set(
 			tasksAtom,
 			(tasks) => {
-				return tasks.map(
-					(taskItem) => {
-						if (taskItem.id === id) {
-							return {
-								...taskItem,
-								isCompleted,
-							};
-						}
+				return tasks.map((task) => {
+					if (task.id === id) {
+						return {
+							...task,
+							isCompleted,
+						};
+					}
 
-						return taskItem;
-					},
-				);
+					return task;
+				});
 			},
 		);
 	},
@@ -252,37 +236,17 @@ const updateTaskNameAtom = atom(
 		set(
 			tasksAtom,
 			(tasks) => {
-				return tasks.map(
-					(taskItem) => {
-						if (taskItem.id === id) {
-							return {
-								...taskItem,
-								name,
-							};
-						}
+				return tasks.map((task) => {
+					if (task.id === id) {
+						return {
+							...task,
+							name,
+						};
+					}
 
-						return taskItem;
-					},
-				);
+					return task;
+				});
 			},
-		);
-	},
-);
-
-const resetStateAtom = atom(
-	null,
-	(
-		get,
-		set,
-	) => {
-		set(
-			groupsAtom,
-			[],
-		);
-
-		set(
-			tasksAtom,
-			[],
 		);
 	},
 );
@@ -292,7 +256,6 @@ export {
 	addTaskAtom,
 	removeGroupAtom,
 	removeTaskAtom,
-	resetStateAtom,
 	updateGroupIsCollapsedAtom,
 	updateGroupNameAtom,
 	updateTaskIsCompletedAtom,

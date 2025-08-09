@@ -11,6 +11,7 @@
 import { createRootRoute } from '@tanstack/react-router'
 
 import { Route as ReduxRouteImport } from './routes/redux'
+import { Route as NanostoresRouteImport } from './routes/nanostores'
 import { Route as JotaiRouteImport } from './routes/jotai'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -19,6 +20,11 @@ const rootRouteImport = createRootRoute()
 const ReduxRoute = ReduxRouteImport.update({
   id: '/redux',
   path: '/redux',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NanostoresRoute = NanostoresRouteImport.update({
+  id: '/nanostores',
+  path: '/nanostores',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JotaiRoute = JotaiRouteImport.update({
@@ -35,30 +41,34 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/jotai': typeof JotaiRoute
+  '/nanostores': typeof NanostoresRoute
   '/redux': typeof ReduxRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/jotai': typeof JotaiRoute
+  '/nanostores': typeof NanostoresRoute
   '/redux': typeof ReduxRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/jotai': typeof JotaiRoute
+  '/nanostores': typeof NanostoresRoute
   '/redux': typeof ReduxRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/jotai' | '/redux'
+  fullPaths: '/' | '/jotai' | '/nanostores' | '/redux'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/jotai' | '/redux'
-  id: '__root__' | '/' | '/jotai' | '/redux'
+  to: '/' | '/jotai' | '/nanostores' | '/redux'
+  id: '__root__' | '/' | '/jotai' | '/nanostores' | '/redux'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   JotaiRoute: typeof JotaiRoute
+  NanostoresRoute: typeof NanostoresRoute
   ReduxRoute: typeof ReduxRoute
 }
 
@@ -69,6 +79,13 @@ declare module '@tanstack/react-router' {
       path: '/redux'
       fullPath: '/redux'
       preLoaderRoute: typeof ReduxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nanostores': {
+      id: '/nanostores'
+      path: '/nanostores'
+      fullPath: '/nanostores'
+      preLoaderRoute: typeof NanostoresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/jotai': {
@@ -91,6 +108,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   JotaiRoute: JotaiRoute,
+  NanostoresRoute: NanostoresRoute,
   ReduxRoute: ReduxRoute,
 }
 export const routeTree = rootRouteImport

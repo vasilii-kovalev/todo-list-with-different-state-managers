@@ -18,7 +18,7 @@ interface LibraryLink {
 	label: string;
 }
 
-const libraryLink: Array<LibraryLink> = [
+const libraryLinks: Array<LibraryLink> = [
 	{
 		label: "Redux",
 		to: "/redux",
@@ -26,6 +26,10 @@ const libraryLink: Array<LibraryLink> = [
 	{
 		label: "Jotai",
 		to: "/jotai",
+	},
+	{
+		label: "Nano Stores",
+		to: "/nanostores",
 	},
 ];
 
@@ -36,15 +40,15 @@ const Navigation: FC = () => {
 				className={listElement}
 			>
 				{
-					libraryLink.map((item) => {
+					libraryLinks.map((libraryLink) => {
 						return (
 							<li
-								key={item.to}
+								key={libraryLink.to}
 							>
 								<Link
-									to={item.to}
+									to={libraryLink.to}
 								>
-									{item.label}
+									{libraryLink.label}
 								</Link>
 							</li>
 						);
