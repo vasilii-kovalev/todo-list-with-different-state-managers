@@ -9,12 +9,16 @@ import {
 	type FileRouteTypes,
 } from "@/routeTree.gen";
 
-interface LibraryOption {
+import {
+	listElement,
+} from "./navigation.css";
+
+interface LibraryLink {
 	to: FileRouteTypes["to"];
 	label: string;
 }
 
-const libraryOption: Array<LibraryOption> = [
+const libraryLink: Array<LibraryLink> = [
 	{
 		label: "Redux",
 		to: "/redux",
@@ -25,19 +29,14 @@ const libraryOption: Array<LibraryOption> = [
 	},
 ];
 
-const LibrarySelector: FC = () => {
+const Navigation: FC = () => {
 	return (
 		<nav>
 			<ul
-				style={{
-					display: "flex",
-					gap: "1rem",
-					listStyle: "none",
-					padding: 0,
-				}}
+				className={listElement}
 			>
 				{
-					libraryOption.map((item) => {
+					libraryLink.map((item) => {
 						return (
 							<li
 								key={item.to}
@@ -57,5 +56,5 @@ const LibrarySelector: FC = () => {
 };
 
 export {
-	LibrarySelector,
+	Navigation,
 };

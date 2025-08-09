@@ -15,16 +15,20 @@
 		"last 1 firefox version"
 	],
 	"dependencies": {
+		"@reduxjs/toolkit": "2.8.2",
 		"@tanstack/react-router": "1.130.12",
-		"@tanstack/react-router-devtools": "1.130.13",
+		"es-toolkit": "1.39.8",
+		"nanoid": "5.1.5",
 		"react": "19.1.0",
-		"react-dom": "19.1.0"
+		"react-dom": "19.1.0",
+		"react-redux": "9.2.0"
 	},
 	"devDependencies": {
 		"@eslint-react/eslint-plugin": "1.51.1",
 		"@eslint/js": "9.28.0",
 		"@morev/eslint-disable-autofix": "1.0.2",
 		"@stylistic/eslint-plugin": "4.4.1",
+		"@tanstack/react-router-devtools": "1.130.13",
 		"@tanstack/router-plugin": "1.130.15",
 		"@types/bun": "1.2.19",
 		"@types/react": "19.1.8",

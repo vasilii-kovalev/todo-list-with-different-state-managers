@@ -4,8 +4,8 @@ import {
 } from "react";
 
 import {
-	LibrarySelector,
-} from "./library-selector";
+	Navigation,
+} from "./navigation";
 
 const Page: FC<PropsWithChildren> = ({
 	children,
@@ -13,7 +13,7 @@ const Page: FC<PropsWithChildren> = ({
 	return (
 		<main>
 			<header>
-				<LibrarySelector/>
+				<Navigation/>
 			</header>
 
 			<section>
